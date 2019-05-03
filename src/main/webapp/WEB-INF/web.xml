@@ -1,0 +1,76 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+						http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <display-name>Student Catalog Web Application</display-name>
+
+    <servlet>
+        <servlet-name>studentServlet</servlet-name>
+        <servlet-class>by.borisevich.studentCatalog.controller.StudentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>studentServlet</servlet-name>
+        <url-pattern>/showStudents</url-pattern>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addStudentServlet</servlet-name>
+        <servlet-class>by.borisevich.studentCatalog.controller.AddStudentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addStudentServlet</servlet-name>
+        <url-pattern>/addStudent</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>by.borisevich.studentCatalog.controller.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>registerServlet</servlet-name>
+        <servlet-class>by.borisevich.studentCatalog.controller.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registerServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>vkServlet</servlet-name>
+        <servlet-class>by.borisevich.studentCatalog.controller.VkServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>vkServlet</servlet-name>
+        <url-pattern>/login/vk</url-pattern>
+    </servlet-mapping>
+
+
+    <filter>
+        <filter-name>logFilter</filter-name>
+        <filter-class>by.borisevich.studentCatalog.filter.LogFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>logFilter</filter-name>
+        <servlet-name>studentServlet</servlet-name>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>charsetFilter</filter-name>
+        <filter-class>by.borisevich.studentCatalog.filter.CharsetFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>charsetFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+</web-app>

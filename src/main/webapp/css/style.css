@@ -1,0 +1,26 @@
+
+.menu-bar {
+    text-align: center;
+    margin: 50px 0;
+}
+
+.menu-bar ul {
+    display: -webkit-box;;
+}
+
+.menu-bar ul li {
+    text-decoration: none;
+    list-style: none;
+    color: #000000;
+}
+
+.menu-bar ul li:hover {
+    text-decoration: none;
+    color: #000000;
+}
+
+.student-table {
+    text-align: center;
+    border: 1px #000 solid;
+    margin-top: 200px;
+}
