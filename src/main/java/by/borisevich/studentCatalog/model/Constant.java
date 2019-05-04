@@ -13,6 +13,9 @@ public class Constant {
     public static final String dbUser = "root";
     public static final String dbPassword = "root";
 
+    public static final String VK_CLIENT_ID = "6970510";
+    public static final String VK_REDIRECT_URL = "http://localhost:8800/borisevich_war/login/vk";
+    public static final String VK_CLIENT_SECRET = "Weq9HUwgcUuNUiOCvqxn";
 
     public static final String SQL_CREATE_STUDENT_TABLE = "CREATE TABLE if not exists Student (" +
                                                                 "id int NOT NULL AUTO_INCREMENT," +

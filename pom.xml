@@ -71,6 +71,13 @@
             <version>1.24.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180813</version>
+        </dependency>
+
     </dependencies>
 
     <distributionManagement>
@@ -112,6 +119,14 @@
                                     <artifactId>mysql-connector-java</artifactId>
                                     <type>jar</type>
                                     <destFileName>mysql-connector-java-5.1.6.jar</destFileName>
+                                    <overWrite>false</overWrite>
+                                </artifactItem>
+
+                                <artifactItem>
+                                    <groupId>org.json</groupId>
+                                    <artifactId>json</artifactId>
+                                    <type>jar</type>
+                                    <destFileName>json-20180813.jar</destFileName>
                                     <overWrite>false</overWrite>
                                 </artifactItem>
 

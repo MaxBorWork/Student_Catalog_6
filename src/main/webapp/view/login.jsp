@@ -34,7 +34,7 @@
     <div class="row">
         <div class="ss-bnt">
             <ul>
-                <li><a class="vk-btn" href="https://oauth.vk.com/authorize?client_id=6970510&display=page&redirect_uri=https://localhost:8080/borisevich_war/login/vk&scope=friends&response_type=code&v=5.95&state=123456">Vk</a></li>
+                <li><a class="vk-btn" href="https://oauth.vk.com/authorize?client_id=6970510&display=page&redirect_uri=http://localhost:8800/borisevich_war/login/vk&scope=friends&response_type=code&v=5.95&state=123456">Vk</a></li>
                 <li>Google</li>
             </ul>
 
