@@ -53,12 +53,12 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>googleServlet</servlet-name>
-        <servlet-class>by.borisevich.studentCatalog.controller.GoogleServlet</servlet-class>
+        <servlet-name>yandexServlet</servlet-name>
+        <servlet-class>by.borisevich.studentCatalog.controller.YandexServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>googleServlet</servlet-name>
-        <url-pattern>/login/google</url-pattern>
+        <servlet-name>yandexServlet</servlet-name>
+        <url-pattern>/login/yandex</url-pattern>
     </servlet-mapping>
 
     <servlet>

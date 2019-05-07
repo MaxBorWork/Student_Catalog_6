@@ -36,12 +36,8 @@
     <div class="row">
         <div class="ss-bnt">
             <ul>
-                <li><a class="vk-btn" href="https://oauth.vk.com/authorize?client_id=6970510&display=page&redirect_uri=http://localhost:8800/borisevich_war/login/vk&scope=friends&response_type=code&v=5.95&state=123456">Vk</a></li>
-                <li>
-                    <form method=”GET” action=”<c:url value="/login/google"/>”>
-                        <button type=”submit”>Login</button>
-                    </form>
-                </li>
+                <li><a class="vk-btn" href="https://oauth.vk.com/authorize?client_id=6970510&display=page&redirect_uri=http://localhost:8080/lab6/login/vk&scope=friends&response_type=code&v=5.95&state=123456">Vk</a></li>
+                <li><a class="yandex-btn" href="https://oauth.yandex.ru/authorize?response_type=code&client_id=e3c965087a944fb584e903f7b491f4e6&redirect_uri=http://localhost:8080/lab6/login/yandex">Яндекс</a></li>
             </ul>
 
         </div>

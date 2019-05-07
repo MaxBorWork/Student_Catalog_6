@@ -45,28 +45,32 @@ public class VkServlet extends HttpServlet {
             }
             if (tokenResponse != null) {
                 String token = tokenResponse.getString("access_token");
-                String userID = tokenResponse.getString("user_id");
+                int userID = tokenResponse.getInt("user_id");
+                String userIDString = String.valueOf(userID);
                 logger.info("got vk token " + token + "for user with id " + userID);
-                User user = dao.getUserByUsername(userID);
+                User user = dao.getUserByUsername(userIDString);
                 HttpSession session = req.getSession();
                 if (user != null) {
-                    session.setAttribute("user", userID);
+                    session.setAttribute("user", userIDString);
                     session.setAttribute("role", user.getRole());
-                    resp.sendRedirect(req.getContextPath() + "/showStudents?page=1");
                 } else {
                     String role = "user";
                     if (dao.getColOfUsers() == 0 ) {
                         role = "admin";
                     }
-                    dao.addUser(new User(userID, userID, role, userID + "@" + userID));
-                    session.setAttribute("user", userID);
+                    dao.addUser(new User(userIDString, userIDString, role, userIDString + "@vk"));
+                    session.setAttribute("user", userIDString);
                     session.setAttribute("role", role);
-                    resp.sendRedirect(req.getContextPath() + "/showStudents?page=1");
                 }
+                resp.sendRedirect(req.getContextPath() + "/showStudents?page=1");
+            } else {
+                req.setAttribute("message", "Авторизация неудачна!");
+                req.getRequestDispatcher("view/login.jsp").forward(req, resp);
             }
+        } else {
+            req.setAttribute("message", "Авторизация неудачна!");
+            req.getRequestDispatcher("view/login.jsp").forward(req, resp);
         }
-        req.setAttribute("message", "Авторизация неудачна!");
-        req.getRequestDispatcher("view/login.jsp").forward(req, resp);
     }
 
     private JSONObject getTokenResponse(String code) throws Exception {
@@ -79,9 +83,7 @@ public class VkServlet extends HttpServlet {
         HttpGet request = new HttpGet(url);
 
         HttpResponse response = client.execute(request);
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " +
-                response.getStatusLine().getStatusCode());
+        logger.debug("Sending 'GET' request to URL : " + url);
 
         BufferedReader rd = new BufferedReader(
                 new InputStreamReader(response.getEntity().getContent()));

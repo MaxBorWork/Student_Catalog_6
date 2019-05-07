@@ -2,9 +2,7 @@ package by.borisevich.studentCatalog.controller;
 
 import by.borisevich.studentCatalog.dao.UserDao;
 import by.borisevich.studentCatalog.model.Constant;
-import by.borisevich.studentCatalog.model.IdTokenVerifierAndParser;
 import by.borisevich.studentCatalog.model.User;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;

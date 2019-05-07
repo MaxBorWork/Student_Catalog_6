@@ -14,7 +14,7 @@ public class Constant {
     public static final String dbPassword = "root";
 
     public static final String VK_CLIENT_ID = "6970510";
-    public static final String VK_REDIRECT_URL = "http://localhost:8800/borisevich_war/login/vk";
+    public static final String VK_REDIRECT_URL = "http://localhost:8080/lab6/login/vk";
     public static final String VK_CLIENT_SECRET = "Weq9HUwgcUuNUiOCvqxn";
 
     public static final String GOOGLE_CLIENT_ID = "332412716242-evg98pmbaas8se9l636u26ovn0a501he.apps.googleusercontent.com";
@@ -144,7 +144,7 @@ public class Constant {
         logger.setLevel(Level.ALL);
         PatternLayout layout = new PatternLayout("%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n");
         try {
-            FileAppender fileAppender = new FileAppender(layout, "/home/maksim/tomcat/logs/lab5-log.log");
+            FileAppender fileAppender = new FileAppender(layout, "/home/maksim/tomcat/logs/lab6-log.log");
             fileAppender.setAppend(false);
             fileAppender.setImmediateFlush(true);
             logger.addAppender(fileAppender);
