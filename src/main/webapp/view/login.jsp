@@ -16,26 +16,32 @@
 <%@ include file="/view/menu.jsp" %>
 <div class="container main-container">
     <div class="row">
-        <form action="<c:url value="/login"/>" method="post" id="loginForm" role="form" class="loginForm">
-            <div class="form-group col-xs-10 col-xs-offset-1">
-                <input type="text" id="username" name="username"
-                       class="form-control" required placeholder="Имя пользователя"/>
-            </div>
-            <div class="form-group col-xs-10 col-xs-offset-1">
-                <input type="password" name="password" id="password"
-                       class="form-control" required placeholder="Пароль"/>
-            </div>
-            <button id="LoginBtn" type="submit" class="btn submit-button col-sm-6 col-sm-offset-3">
-                <span>Войти</span>
-            </button>
-            <br />
-        </form>
+        <div class="log-form col-sm-6 col-sm-offset-3">
+            <form action="<c:url value="/login"/>" method="post" id="loginForm" role="form" class="loginForm">
+                <div class="form-group col-xs-10 col-xs-offset-1">
+                    <input type="text" id="username" name="username"
+                           class="form-control" required placeholder="Имя пользователя"/>
+                </div>
+                <div class="form-group col-xs-10 col-xs-offset-1">
+                    <input type="password" name="password" id="password"
+                           class="form-control" required placeholder="Пароль"/>
+                </div>
+                <button id="LoginBtn" type="submit" class="btn submit-button col-sm-6 col-sm-offset-3">
+                    <span>Войти</span>
+                </button>
+                <br />
+            </form>
+        </div>
     </div>
     <div class="row">
         <div class="ss-bnt">
             <ul>
                 <li><a class="vk-btn" href="https://oauth.vk.com/authorize?client_id=6970510&display=page&redirect_uri=http://localhost:8800/borisevich_war/login/vk&scope=friends&response_type=code&v=5.95&state=123456">Vk</a></li>
-                <li>Google</li>
+                <li>
+                    <form method=”GET” action=”<c:url value="/login/google"/>”>
+                        <button type=”submit”>Login</button>
+                    </form>
+                </li>
             </ul>
 
         </div>

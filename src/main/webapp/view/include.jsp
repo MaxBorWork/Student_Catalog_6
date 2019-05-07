@@ -46,23 +46,24 @@
         color: #000000;
     }
 
-    .addStudentForm {
+    .addStudentForm, .loginForm, .regForm {
         display: grid;
         text-align: center;
     }
 
-    .addStudentForm button {
+    .addStudentForm button, .loginForm button, .regForm button {
         background: #000;
         color: #fff;
         font-size: 18px;
         font-weight: 700;
     }
 
-    .addStudentForm .btn:hover {
+    .addStudentForm .btn:hover, .loginForm .btn:hover, .regForm .btn:hover {
         color: #fff;
     }
 
-    .addStudentForm .btn.focus, .addStudentForm .btn:focus {
+    .addStudentForm .btn.focus, .addStudentForm .btn:focus,
+    .loginForm .btn.focus, .regForm.btn.focus, .loginForm .btn:focus, .regForm .btn:focus {
         color: #fff;
         font-size: 20px;
         font-weight: 700;

@@ -17,6 +17,10 @@ public class Constant {
     public static final String VK_REDIRECT_URL = "http://localhost:8800/borisevich_war/login/vk";
     public static final String VK_CLIENT_SECRET = "Weq9HUwgcUuNUiOCvqxn";
 
+    public static final String GOOGLE_CLIENT_ID = "332412716242-evg98pmbaas8se9l636u26ovn0a501he.apps.googleusercontent.com";
+    public static final String GOOGLE_REDIRECT_URL = "http://localhost:8800/borisevich_war/login/google";
+    public static final String GOOGLE_CLIENT_SECRET = "ARyQmQ-hSYHQtw_JQzE5Igko";
+
     public static final String SQL_CREATE_STUDENT_TABLE = "CREATE TABLE if not exists Student (" +
                                                                 "id int NOT NULL AUTO_INCREMENT," +
                                                                 "surname varchar(255) not null," +
@@ -117,13 +121,19 @@ public class Constant {
             "(username, password, email, roleid) " +
             "VALUES (?,?,?,?)";
 
-    public static final String SQL_SELECT_USER = "SELECT (username, password, email, roleid) FROM User " +
+    public static final String SQL_SELECT_USER = "SELECT username, password, email, roleid FROM User " +
                                                         "WHERE username=? AND password=?";
 
     public static final String SQL_SELECT_USER_BY_USERNAME = "SELECT username, password, email, roleid FROM User " +
                                                                 "WHERE username=?";
 
+    public static final String SQL_GET_COL_OF_USERS = "SELECT COUNT(id) FROM User";
+
+    public static final String SQL_DELETE_USER_QUERY = "DELETE FROM User WHERE username=?";
+
     public static final String SQL_GET_ROLE_ID_BY_NAME = "SELECT id FROM Role WHERE rolename=?";
+
+    public static final String SQL_UPDATE_ROLE = "UPDATE User SET roleid=? WHERE username=?;";
 
     public static final String SQL_GET_ROLENAME_BY_ID = "SELECT rolename FROM Role WHERE id=?";
 

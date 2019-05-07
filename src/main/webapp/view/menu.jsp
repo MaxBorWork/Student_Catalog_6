@@ -12,14 +12,24 @@
         <div class="col-sm-4 col-sm-offset-4 title">
             <ex:Title/>
         </div>
-    </div>
-    <div class="row">
-        <ul class="col-sm-offset-4 col-sm-4">
-            <li class="nav-item"><a class="nav-link" href="<c:url value="/showStudents?page=1"/>">Показать</a></li>
-            <li class="nav-item"><a class="nav-link" href="<c:url value="/addStudent"/>">Добавить</a></li>
-
+        <ul class="user-menu">
+            <%  if (session.getAttribute("user") != null) {%>
+            <li class="nav-item"><a class="nav-link" href="<c:url value="/login"/>">Выйти</a></li>
+            <% } else { %>
             <li class="nav-item"><a class="nav-link" href="<c:url value="/login"/>">Войти</a></li>
             <li class="nav-item"><a class="nav-link" href="<c:url value="/register"/>">Регистрация</a></li>
+            <% } %>
+        </ul>
+    </div>
+    <div class="row">
+        <ul class="col-sm-offset-3 col-sm-6">
+            <%  if (session.getAttribute("user") != null) {%>
+                <li class="nav-item"><a class="nav-link" href="<c:url value="/showStudents?page=1"/>">Показать</a></li>
+                <li class="nav-item"><a class="nav-link" href="<c:url value="/addStudent"/>">Добавить</a></li>
+                <%  if (session.getAttribute("user") != null && session.getAttribute("role").equals("admin")) {%>
+                <li class="nav-item"><a class="nav-link" href="<c:url value="/users"/>">Пользователи</a></li>
+                <% } %>
+            <% } %>
         </ul>
     </div>
 </div>

@@ -24,10 +24,6 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("register get request");
-        List<String> rolenameList = dao.getRolenameList();
-        if (rolenameList != null) {
-            req.setAttribute("rolesList", rolenameList);
-        }
         req.getRequestDispatcher("view/register.jsp").forward(req, resp);
     }
 
@@ -44,7 +40,7 @@ public class RegisterServlet extends HttpServlet {
         user.setUsername(req.getParameter("username"));
         user.setPassword(req.getParameter("password"));
         user.setEmail(req.getParameter("userEmail"));
-        user.setRole(req.getParameter("role"));
+        user.setRole("user");
         return user;
     }
 }

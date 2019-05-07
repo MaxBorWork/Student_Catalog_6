@@ -68,38 +68,5 @@
                 <a href="${pageContext.request.contextPath}/showStudents?page=${currentPage + 1}">Next</a>
             </c:if>
     </div>
-    <%--<div class="student-paging container col-sm-offset-4 col-sm-4">--%>
-        <%--<c:if test="${currentPage != 1}">--%>
-            <%--<a href="${pageContext.request.contextPath}/showStudents?page=${currentPage - 1}">Prev</a>--%>
-        <%--</c:if>--%>
-        <%--<c:if test="${(currentPage-4) > 1}">--%>
-            <%--<a href="${pageContext.request.contextPath}/showStudents?page=1">1</a>--%>
-            <%--<span>...</span>--%>
-        <%--</c:if>--%>
-        <%--<a href="${pageContext.request.contextPath}/showStudents?page=${currentPage}">${currentPage-3}</a>--%>
-        <%--<a href="${pageContext.request.contextPath}/showStudents?page=${currentPage-2}">${currentPage-2}</a>--%>
-        <%--<a href="${pageContext.request.contextPath}/showStudents?page=${currentPage-1}">${currentPage-1}</a>--%>
-        <%--<a href="${pageContext.request.contextPath}/showStudents?page=${currentPage+1}">${currentPage+1}</a>--%>
-        <%--<a href="${pageContext.request.contextPath}/showStudents?page=${currentPage+2}">${currentPage+2}</a>--%>
-        <%--<a href="${pageContext.request.contextPath}/showStudents?page=${currentPage+3}">${currentPage+3}</a>--%>
-
-        <%--&lt;%&ndash;<c:forEach begin="1" end="${noOfPages}" var="i">&ndash;%&gt;--%>
-            <%--&lt;%&ndash;<c:choose>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<c:when test="${currentPage eq i}">&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<span>${i}</span>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</c:when>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<c:otherwise>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<a href="${pageContext.request.contextPath}/showStudents?page=${i}">${i}</a>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</c:otherwise>&ndash;%&gt;--%>
-            <%--&lt;%&ndash;</c:choose>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</c:forEach>&ndash;%&gt;--%>
-        <%--<c:if test="${currentPage+4 lt noOfPages}">--%>
-            <%--<span>...</span>--%>
-            <%--<a href="${pageContext.request.contextPath}/showStudents?page=${noOfPages}">${noOfPages}</a>--%>
-        <%--</c:if>--%>
-        <%--<c:if test="${currentPage lt noOfPages}">--%>
-            <%--<a href="${pageContext.request.contextPath}/showStudents?page=${currentPage + 1}">Next</a>--%>
-        <%--</c:if>--%>
-    <%--</div>--%>
 </body>
 </html>

@@ -99,7 +99,70 @@ public class UserDao {
         return null;
     }
 
-    private int getRoleId(String rolename) {
+    public List<User> getUsersList(int start,int total) {
+        List<User> list=new ArrayList<>();
+        try{
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            PreparedStatement ps = con.prepareStatement("SELECT username, password, roleid, email from User " +
+                                                         "limit "+ (start-1) + ","+total);
+            ResultSet resultSet = ps.executeQuery();
+            while(resultSet.next()){
+                list.add(new User(resultSet.getString(1),
+                        resultSet.getString(2),
+                        getRolenameById(resultSet.getInt(3)),
+                        resultSet.getString(4)));
+            }
+            con.close();
+        }catch(SQLException e){
+            e.printStackTrace();;
+        }
+        return list;
+    }
+
+    public void deleteUser(String username) {
+        try {
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            PreparedStatement preparedStatement = con.prepareStatement(Constant.SQL_DELETE_USER_QUERY);
+            preparedStatement.setString(1, username);
+            preparedStatement.executeUpdate();
+
+            con.close();
+            log.info("user " + username + " deleted");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void updateUserRole(int roleID, String username) {
+        try {
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+                PreparedStatement preparedStatement = con.prepareStatement(Constant.SQL_UPDATE_ROLE);
+                preparedStatement.setInt(1, roleID);
+                preparedStatement.setString(2, username);
+                preparedStatement.executeUpdate();
+                con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getColOfUsers() {
+        int colOfRecords = 0;
+        try {
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            PreparedStatement statement = con.prepareStatement(Constant.SQL_GET_COL_OF_USERS);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                colOfRecords = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return colOfRecords;
+    }
+
+    public int getRoleId(String rolename) {
         int id = 0;
         try {
             Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);

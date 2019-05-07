@@ -27,7 +27,6 @@ public class VkServlet extends HttpServlet {
 
     private Logger logger = Logger.getLogger(AddStudentServlet.class);
     private UserDao dao = new UserDao();
-    private final String USER_AGENT = "Mozilla/5.0";
 
     public VkServlet() {
         Constant.loggerConfig(logger);
@@ -49,11 +48,20 @@ public class VkServlet extends HttpServlet {
                 String userID = tokenResponse.getString("user_id");
                 logger.info("got vk token " + token + "for user with id " + userID);
                 User user = dao.getUserByUsername(userID);
+                HttpSession session = req.getSession();
                 if (user != null) {
-                    HttpSession session = req.getSession();
-                    session.setAttribute("user", user);
+                    session.setAttribute("user", userID);
                     session.setAttribute("role", user.getRole());
-                    req.getRequestDispatcher("home.jsp").forward(req, resp);
+                    resp.sendRedirect(req.getContextPath() + "/showStudents?page=1");
+                } else {
+                    String role = "user";
+                    if (dao.getColOfUsers() == 0 ) {
+                        role = "admin";
+                    }
+                    dao.addUser(new User(userID, userID, role, userID + "@" + userID));
+                    session.setAttribute("user", userID);
+                    session.setAttribute("role", role);
+                    resp.sendRedirect(req.getContextPath() + "/showStudents?page=1");
                 }
             }
         }
