@@ -23,6 +23,10 @@
                 </c:forEach>
             </select>
             </div>
+            <div class="form-group col-xs-10 col-xs-offset-1">
+                <input type="hidden" name="username" value="${username}" id="username"
+                       class="form-control" placeholder="ID"/>
+            </div>
             <button id="roleBtn" type="submit" class="btn submit-button col-sm-6 col-sm-offset-3">
                 <span>Сохранить</span>
             </button>

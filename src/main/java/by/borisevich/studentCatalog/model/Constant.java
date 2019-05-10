@@ -4,22 +4,20 @@ import org.apache.log4j.FileAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Constant {
 
-    public static final String dbUrl = "jdbc:mysql://localhost:3306/studentList?useUnicode=true&characterEncoding=utf8";
-    public static final String dbUser = "root";
-    public static final String dbPassword = "root";
+    public static final String ERROR_AUTHORIZATION_MESSAGE = "Авторизация неудачна!";
 
-    public static final String VK_CLIENT_ID = "6970510";
-    public static final String VK_REDIRECT_URL = "http://localhost:8080/lab6/login/vk";
-    public static final String VK_CLIENT_SECRET = "Weq9HUwgcUuNUiOCvqxn";
-
-    public static final String GOOGLE_CLIENT_ID = "332412716242-evg98pmbaas8se9l636u26ovn0a501he.apps.googleusercontent.com";
-    public static final String GOOGLE_REDIRECT_URL = "http://localhost:8800/borisevich_war/login/google";
-    public static final String GOOGLE_CLIENT_SECRET = "ARyQmQ-hSYHQtw_JQzE5Igko";
+    public static final String SUPER_ADMIN_ROLE = "sudo";
+    public static final String ADMIN_ROLE = "admin";
+    public static final String USER_ROLE = "user";
 
     public static final String SQL_CREATE_STUDENT_TABLE = "CREATE TABLE if not exists Student (" +
                                                                 "id int NOT NULL AUTO_INCREMENT," +
@@ -113,19 +111,18 @@ public class Constant {
 
     public static final String SQL_GET_GROUP_ID_BY_NUM = "SELECT id FROM StudentsGroup WHERE groupNum=?";
 
-    public static final String ADMIN_ROLE = "admin";
-
-    public static final String USER_ROLE = "user";
-
     public static final String SQL_INSERT_USER_QUERY = "INSERT INTO User" +
-            "(username, password, email, roleid) " +
-            "VALUES (?,?,?,?)";
+                                                            "(username, password, email, roleid) " +
+                                                            "VALUES (?,?,?,?)";
 
     public static final String SQL_SELECT_USER = "SELECT username, password, email, roleid FROM User " +
                                                         "WHERE username=? AND password=?";
 
     public static final String SQL_SELECT_USER_BY_USERNAME = "SELECT username, password, email, roleid FROM User " +
                                                                 "WHERE username=?";
+
+    public static final String SQL_SELECT_LAST_USER = "SELECT username, password, email, roleid FROM User " +
+                                                                "WHERE id = (SELECT max(id) FROM User)";
 
     public static final String SQL_GET_COL_OF_USERS = "SELECT COUNT(id) FROM User";
 
@@ -137,8 +134,15 @@ public class Constant {
 
     public static final String SQL_GET_ROLENAME_BY_ID = "SELECT rolename FROM Role WHERE id=?";
 
-    public static final String SQL_GET_ROLENAME_LIST = "SELECT DISTINCT rolename FROM Role";
+    public static final String SQL_GET_ROLENAME_LIST = "SELECT DISTINCT rolename FROM Role WHERE id!=3";
 
+    public static final String SQL_GET_USER_LIST = "SELECT username, password, roleid, email from User " +
+                                                        "WHERE User.roleid=2 " +
+                                                        "LIMIT ?,?";
+
+    public static final String SQL_GET_EXTENDED_USER_LIST = "SELECT username, password, roleid, email from User " +
+            "WHERE User.roleid !=3 " +
+            "LIMIT ?,?";
 
     public static void loggerConfig(Logger logger) {
         logger.setLevel(Level.ALL);
@@ -149,6 +153,44 @@ public class Constant {
             fileAppender.setImmediateFlush(true);
             logger.addAppender(fileAppender);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String DB_URL;
+    public static String DB_USER;
+    public static String DB_PASSWORD;
+
+    public static String VK_CLIENT_ID;
+    public static String VK_REDIRECT_URL;
+    public static String VK_CLIENT_SECRET;
+
+    public static String YANDEX_CLIENT_ID;
+    public static String YANDEX_REDIRECT_URL;
+    public static String YANDEX_CLIENT_SECRET;
+    public static String YANDEX_GET_TOKEN_URL;
+    public static String YANDEX_GET_INFO_URL;
+
+    public Constant() {
+        try{
+            String text = new String(Files.readAllBytes(Paths.get("Config.json")), StandardCharsets.UTF_8);
+            JSONObject object = new JSONObject(text);
+
+            DB_URL = object.get("DB_URL").toString();
+            DB_USER = object.get("DB_USER").toString();
+            DB_PASSWORD = object.get("DB_PASSWORD").toString();
+
+            VK_CLIENT_ID = object.get("VK_CLIENT_ID").toString();
+            VK_REDIRECT_URL =  object.get("VK_REDIRECT_URL").toString();
+            VK_CLIENT_SECRET = object.get("VK_CLIENT_SECRET").toString();
+
+            YANDEX_CLIENT_ID = object.get("YANDEX_CLIENT_ID").toString();
+            YANDEX_REDIRECT_URL = object.get("YANDEX_REDIRECT_URL").toString();
+            YANDEX_CLIENT_SECRET = object.get("YANDEX_CLIENT_SECRET").toString();
+            YANDEX_GET_TOKEN_URL = object.get("YANDEX_GET_TOKEN_URL").toString();
+            YANDEX_GET_INFO_URL = object.get("YANDEX_GET_INFO_URL").toString();
+
+        } catch(Exception e){
             e.printStackTrace();
         }
     }

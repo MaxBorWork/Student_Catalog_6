@@ -3,6 +3,7 @@ package by.borisevich.studentCatalog.controller;
 import by.borisevich.studentCatalog.dao.StudentDao;
 import by.borisevich.studentCatalog.dao.UserDao;
 import by.borisevich.studentCatalog.model.Constant;
+import by.borisevich.studentCatalog.model.Student;
 import by.borisevich.studentCatalog.model.User;
 import org.apache.log4j.Logger;
 
@@ -30,9 +31,14 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("register post request");
-        dao.addUser(createUser(req));
-        req.setAttribute("successRegistration", "Регистрация успешна!");
-        req.getRequestDispatcher("view/register.jsp").forward(req, resp);
+        if (req.getParameter("password") != null) {
+            dao.addUser(createUser(req));
+            req.setAttribute("successRegistration", "Регистрация успешна!");
+            req.getRequestDispatcher("view/register.jsp").forward(req, resp);
+        } else {
+            dao.updateUserRole(dao.getRoleId(req.getParameter("role")), req.getParameter("username"));
+            req.getRequestDispatcher("view/users.jsp").forward(req, resp);
+        }
     }
 
     private User createUser(HttpServletRequest req) {

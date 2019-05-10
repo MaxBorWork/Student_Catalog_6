@@ -44,7 +44,6 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("role", user.getRole());
                 logger.info("successfully logged in user " + username);
                 resp.sendRedirect(req.getContextPath() + "/showStudents?page=1");
-//                req.getRequestDispatcher("home.jsp").forward(req, resp);
             } else {
                 req.setAttribute("message", "Введен неверный пароль!");
                 logger.info("user " + username + " can't logged in. Password"  + password + " is wrong.");

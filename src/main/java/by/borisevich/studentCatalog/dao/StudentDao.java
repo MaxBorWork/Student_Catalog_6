@@ -14,10 +14,11 @@ public class StudentDao {
 
     public StudentDao() {
         try {
+            new Constant();
             Constant.loggerConfig(log);
             log.info("creating student datatables");
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            Connection con = DriverManager.getConnection(Constant.DB_URL, Constant.DB_USER, Constant.DB_PASSWORD);
 
             Statement statement = con.createStatement();
 
@@ -36,7 +37,7 @@ public class StudentDao {
 
     public void addStudent(Student student) {
         try {
-            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            Connection con = DriverManager.getConnection(Constant.DB_URL, Constant.DB_USER, Constant.DB_PASSWORD);
             if (student != null) {
                 PreparedStatement ps = con.prepareStatement(Constant.SQL_INSERT_STUDENT_QUERY);
                 ps.setString(1, student.getSurname());
@@ -62,7 +63,7 @@ public class StudentDao {
 
     public void updateStudent(Student student) {
         try {
-            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            Connection con = DriverManager.getConnection(Constant.DB_URL, Constant.DB_USER, Constant.DB_PASSWORD);
             if (student != null) {
                 PreparedStatement preparedStatement = con.prepareStatement(Constant.SQL_UPDATE_ADDRESS_QUERY);
                 preparedStatement.setString(1, student.getAddress().getStreet());
@@ -88,36 +89,10 @@ public class StudentDao {
         }
     }
 
-    public List<Student> listStudents() {
-        List<Student> list = new ArrayList<>();
-        try {
-            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
-            Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery(Constant.SQL_SELECT_ALL_RECORDS);
-            while (resultSet.next()) {
-                list.add(new Student(resultSet.getInt(1),
-                                        resultSet.getString(2),
-                                        resultSet.getString(3),
-                                        resultSet.getString(4),
-                                        resultSet.getInt(13),
-                                        resultSet.getString(6),
-                                        new Address(resultSet.getInt(7),
-                                                    resultSet.getString(8),
-                                                    resultSet.getString(9),
-                                                    resultSet.getString(10))));
-            }
-            con.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
     public List<Student> getStudentsList(int start,int total) {
         List<Student> list=new ArrayList<>();
         try{
-            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            Connection con = DriverManager.getConnection(Constant.DB_URL, Constant.DB_USER, Constant.DB_PASSWORD);
             PreparedStatement ps = con.prepareStatement("SELECT * from Student " +
                                                                 "INNER JOIN Address ON Student.id = Address.id " +
                                                                 "INNER JOIN StudentsGroup ON Student.groupId = StudentsGroup.id limit "+
@@ -144,7 +119,7 @@ public class StudentDao {
 
     public Student getStudent(int id) {
         try {
-            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            Connection con = DriverManager.getConnection(Constant.DB_URL, Constant.DB_USER, Constant.DB_PASSWORD);
             PreparedStatement statement = con.prepareStatement(Constant.SQL_SELECT_STUDENT_BY_ID);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -173,7 +148,7 @@ public class StudentDao {
 
     public void deleteStudent(int id) {
         try {
-            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            Connection con = DriverManager.getConnection(Constant.DB_URL, Constant.DB_USER, Constant.DB_PASSWORD);
             PreparedStatement preparedStatement = con.prepareStatement(Constant.SQL_DELETE_ADDRESS_QUERY);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
@@ -183,7 +158,7 @@ public class StudentDao {
             statement.executeUpdate();
 
             con.close();
-            log.info("student №" + id + " updated");
+            log.info("student №" + id + " deleted");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -191,7 +166,7 @@ public class StudentDao {
 
     public Student getLastStudent() {
         try {
-            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            Connection con = DriverManager.getConnection(Constant.DB_URL, Constant.DB_USER, Constant.DB_PASSWORD);
             PreparedStatement statement = con.prepareStatement(Constant.SQL_SELECT_LAST_RECORD);
             ResultSet resultSet = statement.executeQuery();
             Student foundStudent = new Student();
@@ -219,7 +194,7 @@ public class StudentDao {
 
     private int getLastStudentId() {
         try {
-            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            Connection con = DriverManager.getConnection(Constant.DB_URL, Constant.DB_USER, Constant.DB_PASSWORD);
             PreparedStatement statement = con.prepareStatement(Constant.SQL_SELECT_LAST_STUDENT_ID);
             ResultSet resultSet = statement.executeQuery();
             int id = 0;
@@ -236,7 +211,7 @@ public class StudentDao {
     public int getColOfRecords() {
         int colOfRecords = 0;
         try {
-            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            Connection con = DriverManager.getConnection(Constant.DB_URL, Constant.DB_USER, Constant.DB_PASSWORD);
             PreparedStatement statement = con.prepareStatement(Constant.SQL_GET_COL_OF_RECORDS);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -251,7 +226,7 @@ public class StudentDao {
     public List<String> getGroupNumList() {
         List<String> list=new ArrayList<>();
         try{
-            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            Connection con = DriverManager.getConnection(Constant.DB_URL, Constant.DB_USER, Constant.DB_PASSWORD);
             PreparedStatement ps = con.prepareStatement("SELECT DISTINCT groupNum FROM StudentsGroup");
             ResultSet resultSet = ps.executeQuery();
             while(resultSet.next()){
@@ -267,7 +242,7 @@ public class StudentDao {
     private int getGroupId(int groupNum) {
         int groupId = 0;
         try {
-            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            Connection con = DriverManager.getConnection(Constant.DB_URL, Constant.DB_USER, Constant.DB_PASSWORD);
             PreparedStatement statement = con.prepareStatement(Constant.SQL_GET_GROUP_ID_BY_NUM);
             statement.setInt(1, groupNum);
             ResultSet resultSet = statement.executeQuery();

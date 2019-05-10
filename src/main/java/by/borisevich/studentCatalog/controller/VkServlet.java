@@ -54,9 +54,9 @@ public class VkServlet extends HttpServlet {
                     session.setAttribute("user", userIDString);
                     session.setAttribute("role", user.getRole());
                 } else {
-                    String role = "user";
+                    String role = Constant.USER_ROLE;
                     if (dao.getColOfUsers() == 0 ) {
-                        role = "admin";
+                        role = Constant.SUPER_ADMIN_ROLE;
                     }
                     dao.addUser(new User(userIDString, userIDString, role, userIDString + "@vk"));
                     session.setAttribute("user", userIDString);
@@ -64,11 +64,11 @@ public class VkServlet extends HttpServlet {
                 }
                 resp.sendRedirect(req.getContextPath() + "/showStudents?page=1");
             } else {
-                req.setAttribute("message", "Авторизация неудачна!");
+                req.setAttribute("message", Constant.ERROR_AUTHORIZATION_MESSAGE);
                 req.getRequestDispatcher("view/login.jsp").forward(req, resp);
             }
         } else {
-            req.setAttribute("message", "Авторизация неудачна!");
+            req.setAttribute("message", Constant.ERROR_AUTHORIZATION_MESSAGE);
             req.getRequestDispatcher("view/login.jsp").forward(req, resp);
         }
     }

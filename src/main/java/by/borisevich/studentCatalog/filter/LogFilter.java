@@ -13,6 +13,7 @@ public class LogFilter implements Filter {
     private Logger log = Logger.getLogger(LogFilter.class);
 
     public LogFilter() {
+        new Constant();
         Constant.loggerConfig(log);
     }
 

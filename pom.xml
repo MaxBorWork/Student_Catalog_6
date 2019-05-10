@@ -199,6 +199,7 @@
                 <targetPath>${project.build.directory}</targetPath>
                 <includes>
                     <include>log4j.properties</include>
+                    <include>Config.json</include>
                 </includes>
             </resource>
         </resources>

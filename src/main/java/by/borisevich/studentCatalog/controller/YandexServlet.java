@@ -61,9 +61,9 @@ public class YandexServlet extends HttpServlet {
                         session.setAttribute("user", userID);
                         session.setAttribute("role", user.getRole());
                     } else {
-                        String role = "user";
+                        String role = Constant.USER_ROLE;
                         if (dao.getColOfUsers() == 0) {
-                            role = "admin";
+                            role = Constant.SUPER_ADMIN_ROLE;
                         }
                         dao.addUser(new User(userID, userID, role, userID + "@yandex"));
                         session.setAttribute("user", userID);
@@ -72,29 +72,28 @@ public class YandexServlet extends HttpServlet {
                     resp.sendRedirect(req.getContextPath() + "/showStudents?page=1");
                 }
             } else {
-                req.setAttribute("message", "Авторизация неудачна!");
+                req.setAttribute("message", Constant.ERROR_AUTHORIZATION_MESSAGE);
                 req.getRequestDispatcher("view/login.jsp").forward(req, resp);
             }
         } else {
-            req.setAttribute("message", "Авторизация неудачна!");
+            req.setAttribute("message", Constant.ERROR_AUTHORIZATION_MESSAGE);
             req.getRequestDispatcher("view/login.jsp").forward(req, resp);
         }
     }
 
     private String getTokenResponse(String code) throws Exception {
-        String URI = "https://oauth.yandex.ru/token";
         HttpClient client= new DefaultHttpClient();
-        HttpPost request = new HttpPost(URI);
+        HttpPost request = new HttpPost(Constant.YANDEX_GET_TOKEN_URL);
 
         List<NameValuePair> pairs = new ArrayList<>();
         pairs.add(new BasicNameValuePair("grant_type", "authorization_code"));
         pairs.add(new BasicNameValuePair("code", code));
-        pairs.add(new BasicNameValuePair("client_id", "e3c965087a944fb584e903f7b491f4e6"));
-        pairs.add(new BasicNameValuePair("client_secret", "499ca3ece23a484ab3dbe8c66d939442"));
+        pairs.add(new BasicNameValuePair("client_id", Constant.YANDEX_CLIENT_ID));
+        pairs.add(new BasicNameValuePair("client_secret", Constant.YANDEX_CLIENT_SECRET));
         request.setEntity(new UrlEncodedFormEntity(pairs));
 
         HttpResponse resp = client.execute(request);
-        logger.debug("Sending POST request to URL : " + URI);
+        logger.debug("Sending POST request to URL : " + Constant.YANDEX_GET_TOKEN_URL);
 
         BufferedReader rd = new BufferedReader(
                 new InputStreamReader(resp.getEntity().getContent()));
@@ -111,8 +110,7 @@ public class YandexServlet extends HttpServlet {
     }
 
     private JSONObject getPersonInfo(String token) throws Exception {
-        String url = "https://login.yandex.ru/info?" +
-                "format=json&with_openid_identity=0&oauth_token=" + token;
+        String url = Constant.YANDEX_GET_INFO_URL + token;
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
 

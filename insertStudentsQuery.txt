@@ -1,3 +1,8 @@
+INSERT INTO Role (rolename)
+        VALUES  ('admin'),
+                ('user'),
+                ('sudo');
+
 INSERT INTO StudentsGroup (groupNum, groupType)
         VALUES  ('621702', 'Дневное'),
                 ('621701', 'Дневное'),

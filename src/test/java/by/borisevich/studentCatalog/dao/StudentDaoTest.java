@@ -1,6 +1,7 @@
 package by.borisevich.studentCatalog.dao;
 
 import by.borisevich.studentCatalog.model.Address;
+import by.borisevich.studentCatalog.model.Constant;
 import by.borisevich.studentCatalog.model.Student;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,10 +13,10 @@ import static org.junit.Assert.*;
 public class StudentDaoTest {
 
     private StudentDao dao = new StudentDao();
-    private Student student;
 
     @Before
     public void setUp() throws Exception {
+        new Constant();
     }
 
     @Test

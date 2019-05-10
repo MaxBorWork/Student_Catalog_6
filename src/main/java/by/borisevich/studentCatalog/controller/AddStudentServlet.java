@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,29 +26,38 @@ public class AddStudentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("addStudent get request");
-        List<String> groupsList = dao.getGroupNumList();
-        if (groupsList != null) {
-            req.setAttribute("groupsList", groupsList);
+        HttpSession session = req.getSession();
+        if (session.getAttribute("user") != null &&
+                (session.getAttribute("role").equals("sudo") ||
+                        (session.getAttribute("role").equals("admin")))) {
+            List<String> groupsList = dao.getGroupNumList();
+            if (groupsList != null) {
+                req.setAttribute("groupsList", groupsList);
+            }
+            req.getRequestDispatcher("view/addStudent.jsp").forward(req, resp);
+        } else {
+            req.getRequestDispatcher("view/login.jsp").forward(req, resp);
         }
-        req.getRequestDispatcher("view/addStudent.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("addStudent post request");
-        Student student = createStudent(req);
-        if (!req.getParameter("studentID").equals("")) {
-            student.setId(Integer.parseInt(req.getParameter("studentID")));
-            dao.updateStudent(student);
+        HttpSession session = req.getSession();
+        if (session.getAttribute("user") != null &&
+                (session.getAttribute("role").equals("sudo") ||
+                        (session.getAttribute("role").equals("admin")))) {
+            Student student = createStudent(req);
+            if (!req.getParameter("studentID").equals("")) {
+                student.setId(Integer.parseInt(req.getParameter("studentID")));
+                dao.updateStudent(student);
+            } else {
+                dao.addStudent(student);
+            }
+            req.getRequestDispatcher("view/addStudent.jsp").forward(req, resp);
         } else {
-            dao.addStudent(student);
+            req.getRequestDispatcher("view/login.jsp").forward(req, resp);
         }
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        req.getRequestDispatcher("view/addStudent.jsp").forward(req, resp);
     }
 
     private Student splitFIO(HttpServletRequest req) {

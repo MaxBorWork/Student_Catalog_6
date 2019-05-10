@@ -15,11 +15,10 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.atLeast;
 
-public class StudentServletTest {
+public class UserServletTest {
 
-    private StudentServlet studentServlet;
+    private UserServlet userServlet;
     private HttpServletResponse mockResponse;
     private HttpServletRequest mockRequest;
     private HttpSession mockSession;
@@ -27,7 +26,7 @@ public class StudentServletTest {
     @Before
     public void setUp() throws Exception {
         new Constant();
-        studentServlet = new StudentServlet();
+        userServlet = new UserServlet();
         mockRequest = Mockito.mock(HttpServletRequest.class);
         mockResponse = Mockito.mock(HttpServletResponse.class);
         mockSession = Mockito.mock(HttpSession.class);
@@ -35,25 +34,15 @@ public class StudentServletTest {
 
     @Test
     public void doGet() throws ServletException, IOException {
-        Mockito.when(mockRequest.getSession()).thenReturn(mockSession);
-        Mockito.when(mockSession.getAttribute("user")).thenReturn("user");
         Mockito.when(mockRequest.getParameter("page")).thenReturn("1");
         Mockito.when(mockRequest.getParameter("currentPage")).thenReturn("1");
+        Mockito.when(mockRequest.getSession()).thenReturn(mockSession);
+        Mockito.when(mockSession.getAttribute("user")).thenReturn("user");
+        Mockito.when(mockSession.getAttribute("role")).thenReturn("sudo");
         RequestDispatcher requestDispatcher = Mockito.mock(RequestDispatcher.class);
-        Mockito.when(mockRequest.getRequestDispatcher(eq("home.jsp"))).thenReturn(requestDispatcher);
-        studentServlet.doGet(mockRequest, mockResponse);
+        Mockito.when(mockRequest.getRequestDispatcher(eq("view/users.jsp"))).thenReturn(requestDispatcher);
+        userServlet.doGet(mockRequest, mockResponse);
         assertEquals(mockRequest.getParameter("currentPage"), "1");
     }
 
-    @Test
-    public void doPost() throws ServletException, IOException {
-        Mockito.when(mockRequest.getSession()).thenReturn(mockSession);
-        Mockito.when(mockSession.getAttribute("user")).thenReturn("user");
-        Mockito.when(mockRequest.getParameter("studentButton")).thenReturn("editStudent_1");
-        Mockito.when(mockRequest.getAttribute("studentID")).thenReturn("1");
-        RequestDispatcher requestDispatcher = Mockito.mock(RequestDispatcher.class);
-        Mockito.when(mockRequest.getRequestDispatcher(eq("view/addStudent.jsp"))).thenReturn(requestDispatcher);
-        studentServlet.doPost(mockRequest, mockResponse);
-        assertEquals(mockRequest.getAttribute("studentID"), "1");
-    }
 }

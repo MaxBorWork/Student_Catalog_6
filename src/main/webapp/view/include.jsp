@@ -108,4 +108,47 @@
     .register-success {
         color: limegreen;
     }
+
+    .ss-bnt ul {
+        width: 100%;
+        margin-left: 20%;
+        margin-top: 5%;
+        text-align: center;
+        list-style: none;
+        display: -webkit-inline-box;
+    }
+
+    .ss-bnt ul li {
+
+    }
+
+    .ss-bnt .vk-btn {
+        color: #337ab7;
+        font-size: 18px;
+        font-weight: 600;
+        border: 2px solid #337ab7;
+        border-radius: 4px;
+        padding: 5px;
+    }
+
+    .ss-bnt .vk-btn:hover {
+        color: #ffffff;
+        background-color: #337ab7;
+        text-decoration: none;
+    }
+
+    .ss-bnt .yandex-btn {
+        color: red;
+        font-size: 18px;
+        font-weight: 600;
+        border: 2px solid;
+        border-radius: 4px;
+        padding: 5px;
+    }
+
+    .ss-bnt .yandex-btn:hover {
+        color: #ffffff;
+        background-color: red;
+        text-decoration: none;
+    }
 </style>

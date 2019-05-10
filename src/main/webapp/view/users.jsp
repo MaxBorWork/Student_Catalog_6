@@ -31,10 +31,12 @@
                         <td class="student-info"><span>${user.email}</span></td>
                         <td class="student-info"><span>${user.role}</span></td>
                         <td>
+                            <%  if (session.getAttribute("user") != null && session.getAttribute("role").equals("sudo")) {%>
                             <form action="" method="POST">
                                 <button type="submit" class="editBtn btn student-button"
                                         name="userButton" value="editUser_${user.username}">Изменить</button>
                             </form>
+                            <% } %>
                         </td>
                         <td>
                             <form action="" method="POST">

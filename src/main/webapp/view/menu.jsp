@@ -25,8 +25,9 @@
         <ul class="col-sm-offset-3 col-sm-6">
             <%  if (session.getAttribute("user") != null) {%>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/showStudents?page=1"/>">Показать</a></li>
+                <%  if (session.getAttribute("user") != null && session.getAttribute("role").equals("admin") ||
+                        session.getAttribute("role").equals("sudo")) {%>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/addStudent"/>">Добавить</a></li>
-                <%  if (session.getAttribute("user") != null && session.getAttribute("role").equals("admin")) {%>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/users"/>">Пользователи</a></li>
                 <% } %>
             <% } %>
