@@ -51,6 +51,7 @@ public class UserServlet extends HttpServlet {
                 req.setAttribute("noOfPages", noOfPages);
                 req.setAttribute("currentPage", pageid);
             }
+            req.setAttribute("username", session.getAttribute("user").toString());
             req.getRequestDispatcher("view/users.jsp").forward(req, resp);
         } else {
             req.getRequestDispatcher("view/login.jsp").forward(req, resp);

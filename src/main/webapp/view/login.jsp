@@ -37,7 +37,7 @@
         <div class="ss-bnt col-sm-4 col-sm-offset-4">
             <ul>
                 <li><a class="vk-btn" href="https://oauth.vk.com/authorize?client_id=6970510&display=page&redirect_uri=http://localhost:8080/lab6/login/vk&scope=friends&response_type=code&v=5.95&state=123456">Vk</a></li>
-                <li class="margin-left: 15%;"><a class="yandex-btn" href="https://oauth.yandex.ru/authorize?response_type=code&client_id=e3c965087a944fb584e903f7b491f4e6&redirect_uri=http://localhost:8080/lab6/login/yandex">Яндекс</a></li>
+                <li class="margin-left: 15%;"><a class="yandex-btn" href="https://oauth.yandex.ru/authorize?response_type=code&client_id=e3c965087a944fb584e903f7b491f4e6&redirect_uri=http://localhost:8080/lab6/login/yandex&force_confirm=yes">Яндекс</a></li>
             </ul>
 
         </div>

@@ -33,6 +33,8 @@
                         <td class="student-info"><span>${student.address.street}</span></td>
                         <td class="student-info"><span>${student.address.house}</span></td>
                         <td class="student-info"><span>${student.address.flat}</span></td>
+                        <%  if (session.getAttribute("user") != null && session.getAttribute("role").equals("admin") ||
+                                session.getAttribute("role").equals("sudo")) {%>
                         <td>
                             <form action="" method="POST">
                                 <button type="submit" class="editBtn btn student-button"
@@ -45,6 +47,7 @@
                                         name="studentButton" value="delStudent_${student.id}">Удалить</button>
                             </form>
                         </td>
+                        <% } %>
                     </tr>
                 </c:forEach>
             </table>
@@ -69,4 +72,5 @@
             </c:if>
     </div>
 </body>
+
 </html>

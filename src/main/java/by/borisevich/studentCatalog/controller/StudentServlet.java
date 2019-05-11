@@ -45,6 +45,7 @@ public class StudentServlet extends HttpServlet {
             int noOfPages = (int) Math.ceil(recordsCount * 1.0 / recordsPerPage);
             req.setAttribute("noOfPages", noOfPages);
             req.setAttribute("currentPage", pageid);
+            req.setAttribute("username", session.getAttribute("user").toString());
             req.getRequestDispatcher("home.jsp").forward(req, resp);
         } else {
             req.getRequestDispatcher("view/login.jsp").forward(req, resp);

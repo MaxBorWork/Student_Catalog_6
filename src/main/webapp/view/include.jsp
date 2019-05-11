@@ -151,4 +151,15 @@
         background-color: red;
         text-decoration: none;
     }
+
+    .username {
+        margin-left: 52%;
+        text-align: center;
+        font-size: 16px;
+        font-style: italic;
+    }
+
+    .username span {
+        font-weight: 600;
+    }
 </style>

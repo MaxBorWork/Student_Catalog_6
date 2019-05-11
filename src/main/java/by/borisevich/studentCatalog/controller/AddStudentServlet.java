@@ -34,6 +34,7 @@ public class AddStudentServlet extends HttpServlet {
             if (groupsList != null) {
                 req.setAttribute("groupsList", groupsList);
             }
+            req.setAttribute("username", session.getAttribute("user").toString());
             req.getRequestDispatcher("view/addStudent.jsp").forward(req, resp);
         } else {
             req.getRequestDispatcher("view/login.jsp").forward(req, resp);

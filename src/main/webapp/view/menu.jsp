@@ -20,6 +20,11 @@
             <li class="nav-item"><a class="nav-link" href="<c:url value="/register"/>">Регистрация</a></li>
             <% } %>
         </ul>
+            <%  if (session.getAttribute("user") != null) {%>
+                <div class="username">
+                    <c:if test="${username != null}">Логин <span>${username}</span></c:if>
+                </div>
+            <% } %>
     </div>
     <div class="row">
         <ul class="col-sm-offset-3 col-sm-6">
